@@ -127,7 +127,7 @@ func (w *fileLogWriter) WriteMsg(when time.Time, msg string, level int) error {
 	// h, d := formatTimeHeader(when)
 	_, d := formatTimeHeader(when)
 	msg = msg + "\n"
-	fmt.Println(msg)
+	// fmt.Println(msg)
 	if w.Rotate {
 		w.RLock()
 		if w.needRotate(len(msg), d) {
@@ -161,6 +161,7 @@ func (w *fileLogWriter) createLogFile() (*os.File, error) {
 		return nil, err
 	}
 	fd, err := os.OpenFile(w.Filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, os.FileMode(perm))
+	// fmt.Println("createLogFile:", fd, err, w.Filename)
 	if err == nil {
 		// Make sure file perm is user set perm cause of `os.OpenFile` will obey umask
 		os.Chmod(w.Filename, os.FileMode(perm))
